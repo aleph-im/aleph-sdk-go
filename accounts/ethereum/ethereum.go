@@ -1,8 +1,10 @@
 package ethereum
 
 import (
+	"encoding/hex"
 	"fmt"
 	hdwallet "github.com/miguelmota/go-ethereum-hdwallet"
+	"ptitluca.com/aleph-sdk-go/messages"
 )
 
 const DefaultDerivationPath = "m/44'/60'/0'/0/0"
@@ -10,6 +12,7 @@ const DefaultDerivationPath = "m/44'/60'/0'/0/0"
 type ETHAccount struct {
 	address string
 	publicKey string
+	wallet *hdwallet.Wallet
 }
 
 func NewAccount(derivationPath string) (*ETHAccount, error) {
@@ -27,7 +30,7 @@ func ImportAccountFromMnemonic(mnemonic, derivationPath string) (*ETHAccount, er
 	}
 
 	path := hdwallet.MustParseDerivationPath(derivationPath)
-	a, err := wallet.Derive(path, false)
+	a, err := wallet.Derive(path, true)
 	if err != nil {
 		return nil, fmt.Errorf("failed to derive path: %v", err)
 	}
@@ -39,5 +42,25 @@ func ImportAccountFromMnemonic(mnemonic, derivationPath string) (*ETHAccount, er
 	return &ETHAccount{
 		address: a.Address.String(),
 		publicKey: publicKey,
+		wallet: wallet,
 	}, nil
+}
+
+func (account *ETHAccount) GetAddress() string {
+	return account.address
+}
+
+func (account *ETHAccount) GetChain() messages.ChainType {
+	return messages.CT_ETH
+}
+
+func (account *ETHAccount) Sign(message *messages.BaseMessage) error {
+	buffer := messages.GetVerificationBuffer(message)
+
+	signature, err := account.wallet.SignText(account.wallet.Accounts()[0], buffer)
+	if err != nil {
+		return fmt.Errorf("failed to sign message: %v", err)
+	}
+	message.Signature = "0x" + hex.EncodeToString(signature)
+	return nil
 }
