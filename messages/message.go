@@ -18,6 +18,7 @@ type MessageType = string
 
 const (
 	MT_AGGREGATE MessageType = "AGGREGATE"
+	MT_POST MessageType = "POST"
 )
 
 type ItemType = string
