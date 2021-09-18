@@ -1,12 +1,16 @@
 package create
 
 import (
+	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"github.com/imroc/req"
+	"io"
+	"mime/multipart"
 	"net/http"
+	"os"
 	"ptitluca.com/aleph-sdk-go/messages"
 	"strings"
 )
@@ -29,7 +33,13 @@ type PutContentConfiguration struct {
 	APIServer       string
 }
 
-// PushToStorageEngine sends the provided content to the selected storage engine (given in the configuration).
+type FilePushConfiguration struct {
+	APIServer string
+	StorageEngine messages.StorageEngine
+	Key string
+	Value io.Reader
+}
+
 func PushToStorageEngine(spc StandardPushConfiguration) (*PushResponse, error) {
 	url := spc.APIServer + "/api/v0/" + strings.ToLower(spc.StorageEngine) + "/add_json"
 	requester := req.New()
@@ -90,4 +100,50 @@ func PutContentToStorageEngine(pcc PutContentConfiguration) error {
 		pcc.Message.ItemHash = response.Hash
 	}
 	return nil
+}
+
+func PushFileToStorageEngine(configuration FilePushConfiguration) (string, error) {
+	var buffer bytes.Buffer
+	var fileWriter io.Writer
+	var err error
+
+	writer := multipart.NewWriter(&buffer)
+	if x, ok := configuration.Value.(io.Closer); ok {
+		defer x.Close()
+	}
+
+	if x, ok := configuration.Value.(*os.File); ok {
+		if fileWriter, err = writer.CreateFormFile(configuration.Key, x.Name()); err != nil {
+			return "", fmt.Errorf("failed to create form file: %v", err)
+		}
+	} else {
+		if fileWriter, err = writer.CreateFormField(configuration.Key); err != nil {
+			return "", fmt.Errorf("failed to create form field: %v", err)
+		}
+	}
+
+	if _, err = io.Copy(fileWriter, configuration.Value); err != nil {
+		return "", fmt.Errorf("failed to perform copy: %v", err)
+	}
+
+	err = writer.Close()
+	if err != nil {
+		return "", fmt.Errorf("failed to close writer: %v", err)
+	}
+
+	url := configuration.APIServer + "/api/v0/" + strings.ToLower(configuration.StorageEngine) + "/add_file"
+	requester := req.New()
+	header := make(http.Header)
+	header.Set("Content-Type", writer.FormDataContentType())
+	response, err := requester.Post(url, &buffer, header)
+	if err != nil {
+		return "", fmt.Errorf("POST request has failed: %v", err)
+	}
+
+	placeholder := &PushResponse{}
+	err = json.Unmarshal(response.Bytes(), &placeholder)
+	if err != nil {
+		return "", fmt.Errorf("failed to unmarshal store response: %v", err)
+	}
+	return placeholder.Hash, nil
 }
