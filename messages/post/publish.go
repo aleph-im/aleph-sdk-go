@@ -2,21 +2,22 @@ package posts
 
 import (
 	"fmt"
+	"time"
+
 	"ptitluca.com/aleph-sdk-go/accounts"
 	"ptitluca.com/aleph-sdk-go/messages"
 	"ptitluca.com/aleph-sdk-go/messages/create"
-	"time"
 )
 
 type PostPublishConfiguration struct {
-	APIServer string
-	Ref string
-	Channel string
+	APIServer       string
+	Ref             string
+	Channel         string
 	InlineRequested bool
-	StorageEngine messages.StorageEngine
-	Account accounts.Account
-	PostType string
-	Content interface{}
+	StorageEngine   messages.StorageEngine
+	Account         accounts.Account
+	PostType        string
+	Content         interface{}
 }
 
 type ReferencedPostContent struct {
@@ -25,28 +26,28 @@ type ReferencedPostContent struct {
 }
 
 type PostContent struct {
-	Address string `json:"address"`
-	Time float64 `json:"time"`
+	Address string      `json:"address"`
+	Time    float64     `json:"time"`
 	Content interface{} `json:"content"`
-	Type string `json:"type"`
+	Type    string      `json:"type"`
 }
 
 func Publish(configuration PostPublishConfiguration) error {
 	timestamp := time.Now().Unix()
 	content := PostContent{
 		Address: configuration.Account.GetAddress(),
-		Time: float64(timestamp),
+		Time:    float64(timestamp),
 		Content: configuration.Content,
 		Type:    configuration.PostType,
 	}
 
 	message := messages.BaseMessage{
-		Channel:       configuration.Channel,
-		Sender:        configuration.Account.GetAddress(),
-		Chain:         configuration.Account.GetChain(),
-		Type:          messages.MT_POST,
-		Time: float64(timestamp),
-		ItemType:      configuration.StorageEngine,
+		Channel:  configuration.Channel,
+		Sender:   configuration.Account.GetAddress(),
+		Chain:    configuration.Account.GetChain(),
+		Type:     messages.MT_POST,
+		Time:     float64(timestamp),
+		ItemType: configuration.StorageEngine,
 	}
 
 	pcc := create.PutContentConfiguration{

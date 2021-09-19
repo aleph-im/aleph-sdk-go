@@ -1,8 +1,9 @@
 package ethereum
 
 import (
-	hdwallet "github.com/miguelmota/go-ethereum-hdwallet"
 	"testing"
+
+	hdwallet "github.com/miguelmota/go-ethereum-hdwallet"
 )
 
 func TestAccountCreation(t *testing.T) {

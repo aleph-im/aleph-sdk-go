@@ -2,11 +2,12 @@ package store
 
 import (
 	"fmt"
+
 	"github.com/imroc/req"
 )
 
 type StoreGetConfiguration struct {
-	FileHash string
+	FileHash  string
 	APIServer string
 }
 

@@ -6,13 +6,14 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/imroc/req"
 	"io"
 	"mime/multipart"
 	"net/http"
 	"os"
-	"ptitluca.com/aleph-sdk-go/messages"
 	"strings"
+
+	"github.com/imroc/req"
+	"ptitluca.com/aleph-sdk-go/messages"
 )
 
 type PushResponse struct {
@@ -34,10 +35,10 @@ type PutContentConfiguration struct {
 }
 
 type FilePushConfiguration struct {
-	APIServer string
+	APIServer     string
 	StorageEngine messages.StorageEngine
-	Key string
-	Value io.Reader
+	Key           string
+	Value         io.Reader
 }
 
 func PushToStorageEngine(spc StandardPushConfiguration) (*PushResponse, error) {

@@ -3,8 +3,9 @@ package aggregate
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/imroc/req"
 	"strings"
+
+	"github.com/imroc/req"
 )
 
 type AggregateGetResponse = []byte
@@ -30,8 +31,8 @@ func Get(agc AggregateGetConfiguration) (AggregateGetResponse, error) {
 	}
 
 	type T struct {
-		Address string `json:"address"`
-		Data map[string]interface{} `json:"data"`
+		Address string                 `json:"address"`
+		Data    map[string]interface{} `json:"data"`
 	}
 	placeholder := T{}
 	err = json.Unmarshal(response.Bytes(), &placeholder)

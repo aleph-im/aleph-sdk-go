@@ -18,8 +18,8 @@ type MessageType = string
 
 const (
 	MT_AGGREGATE MessageType = "AGGREGATE"
-	MT_POST MessageType = "POST"
-	MT_STORE MessageType = "STORE"
+	MT_POST      MessageType = "POST"
+	MT_STORE     MessageType = "STORE"
 )
 
 type ItemType = string
@@ -31,32 +31,32 @@ const (
 )
 
 type MessageConfirmation struct {
-	Chain string `json:"chain"`
-	Height int64 `json:"height"`
-	Hash interface{} `json:"hash"`
+	Chain  string      `json:"chain"`
+	Height int64       `json:"height"`
+	Hash   interface{} `json:"hash"`
 }
 
 type BaseMessageContent struct {
-	Address string `json:"address"`
-	Time float64 `json:"time"`
+	Address string  `json:"address"`
+	Time    float64 `json:"time"`
 }
 
 type BaseMessage struct {
-	ID			map[string]string `json:"_id"`
-	Channel     string      `json:"channel"`
-	Sender      string      `json:"sender"`
-	Chain       ChainType   `json:"chain"`
-	Type        MessageType `json:"type"`
-	Time        float64     `json:"time"`
-	ItemType    ItemType    `json:"item_type,omitempty"`
-	ItemContent string      `json:"item_content"`
-	ItemHash    string      `json:"item_hash"`
-	Signature   string      `json:"signature"`
+	ID            map[string]string     `json:"_id"`
+	Channel       string                `json:"channel"`
+	Sender        string                `json:"sender"`
+	Chain         ChainType             `json:"chain"`
+	Type          MessageType           `json:"type"`
+	Time          float64               `json:"time"`
+	ItemType      ItemType              `json:"item_type,omitempty"`
+	ItemContent   string                `json:"item_content"`
+	ItemHash      string                `json:"item_hash"`
+	Signature     string                `json:"signature"`
 	Confirmations []MessageConfirmation `json:"confirmations,omitempty"`
-	Confirmed bool `json:"confirmed"`
-	Size uint64 `json:"size"`
-	HashType string `json:"hash_type,omitempty"`
-	Content BaseMessageContent `json:"content,omitempty"`
+	Confirmed     bool                  `json:"confirmed"`
+	Size          uint64                `json:"size"`
+	HashType      string                `json:"hash_type,omitempty"`
+	Content       BaseMessageContent    `json:"content,omitempty"`
 }
 
 func GetVerificationBuffer(msg *BaseMessage) []byte {

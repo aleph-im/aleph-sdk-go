@@ -3,6 +3,7 @@ package create
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/imroc/req"
 	"ptitluca.com/aleph-sdk-go/accounts"
 	"ptitluca.com/aleph-sdk-go/messages"
@@ -21,7 +22,7 @@ type BroadcastConfiguration struct {
 
 type BroadcastData struct {
 	Topic string `json:"topic"`
-	Data string `json:"data"`
+	Data  string `json:"data"`
 }
 
 func Broadcast(bc BroadcastConfiguration) error {
@@ -32,7 +33,7 @@ func Broadcast(bc BroadcastConfiguration) error {
 
 	data := BroadcastData{
 		Topic: "ALEPH-TEST",
-		Data: string(serialized),
+		Data:  string(serialized),
 	}
 	serializedData, err := json.Marshal(data)
 	if err != nil {
@@ -41,7 +42,7 @@ func Broadcast(bc BroadcastConfiguration) error {
 
 	requester := req.New()
 
-	_, err = requester.Post(bc.APIServer + "/api/v0/ipfs/pubsub/pub", serializedData)
+	_, err = requester.Post(bc.APIServer+"/api/v0/ipfs/pubsub/pub", serializedData)
 	if err != nil {
 		return fmt.Errorf("POST request has failed: %v", err)
 	}

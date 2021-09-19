@@ -3,6 +3,7 @@ package ethereum
 import (
 	"encoding/hex"
 	"fmt"
+
 	hdwallet "github.com/miguelmota/go-ethereum-hdwallet"
 	"ptitluca.com/aleph-sdk-go/messages"
 )
@@ -10,9 +11,9 @@ import (
 const DefaultDerivationPath = "m/44'/60'/0'/0/0"
 
 type ETHAccount struct {
-	address string
+	address   string
 	publicKey string
-	wallet *hdwallet.Wallet
+	wallet    *hdwallet.Wallet
 }
 
 func NewAccount(derivationPath string) (*ETHAccount, error) {
@@ -40,9 +41,9 @@ func ImportAccountFromMnemonic(mnemonic, derivationPath string) (*ETHAccount, er
 		return nil, fmt.Errorf("failed to retrieve public key from ethereum accout: %v", err)
 	}
 	return &ETHAccount{
-		address: a.Address.String(),
+		address:   a.Address.String(),
 		publicKey: publicKey,
-		wallet: wallet,
+		wallet:    wallet,
 	}, nil
 }
 

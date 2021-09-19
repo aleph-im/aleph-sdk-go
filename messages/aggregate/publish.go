@@ -2,28 +2,29 @@ package aggregate
 
 import (
 	"fmt"
+	"time"
+
 	"ptitluca.com/aleph-sdk-go/accounts"
 	"ptitluca.com/aleph-sdk-go/messages"
 	"ptitluca.com/aleph-sdk-go/messages/create"
-	"time"
 )
 
 type AggregateContent struct {
-	Address string `json:"address"`
-	Key string `json:"key"`
+	Address string      `json:"address"`
+	Key     string      `json:"key"`
 	Content interface{} `json:"content"`
-	Time uint64 `json:"time"`
+	Time    uint64      `json:"time"`
 }
 
 type AggregatePublishConfiguration struct {
-	Account accounts.Account
-	Key string
-	Content interface{}
-	Chain messages.ChainType
-	Channel string
-	APIServer string
+	Account         accounts.Account
+	Key             string
+	Content         interface{}
+	Chain           messages.ChainType
+	Channel         string
+	APIServer       string
 	InlineRequested bool
-	StorageEngine messages.StorageEngine
+	StorageEngine   messages.StorageEngine
 }
 
 func Publish(asc AggregatePublishConfiguration) error {
@@ -32,15 +33,15 @@ func Publish(asc AggregatePublishConfiguration) error {
 		Address: asc.Account.GetAddress(),
 		Key:     asc.Key,
 		Content: asc.Content,
-		Time: uint64(timestamp),
+		Time:    uint64(timestamp),
 	}
 
 	msg := messages.BaseMessage{
-		Channel:     asc.Channel,
-		Chain:       asc.Chain,
-		Sender:      asc.Account.GetAddress(),
-		Type:        messages.MT_AGGREGATE,
-		Time:        float64(timestamp),
+		Channel: asc.Channel,
+		Chain:   asc.Chain,
+		Sender:  asc.Account.GetAddress(),
+		Type:    messages.MT_AGGREGATE,
+		Time:    float64(timestamp),
 	}
 
 	pcc := create.PutContentConfiguration{
