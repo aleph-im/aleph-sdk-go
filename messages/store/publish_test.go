@@ -2,8 +2,8 @@ package store
 
 import (
 	"os"
-	"ptitluca.com/aleph-sdk-go/accounts/ethereum"
-	"ptitluca.com/aleph-sdk-go/messages"
+	"aleph.im/aleph-sdk-go/accounts/ethereum"
+	"aleph.im/aleph-sdk-go/messages"
 	"testing"
 )
 

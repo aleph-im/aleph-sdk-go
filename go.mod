@@ -1,4 +1,4 @@
-module ptitluca.com/aleph-sdk-go
+module aleph.im/aleph-sdk-go
 
 go 1.17
 

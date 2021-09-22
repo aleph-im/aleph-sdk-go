@@ -13,7 +13,7 @@ import (
 	"strings"
 
 	"github.com/imroc/req"
-	"ptitluca.com/aleph-sdk-go/messages"
+	"aleph.im/aleph-sdk-go/messages"
 )
 
 type PushResponse struct {

@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	hdwallet "github.com/miguelmota/go-ethereum-hdwallet"
-	"ptitluca.com/aleph-sdk-go/messages"
+	"aleph.im/aleph-sdk-go/messages"
 )
 
 const DefaultDerivationPath = "m/44'/60'/0'/0/0"

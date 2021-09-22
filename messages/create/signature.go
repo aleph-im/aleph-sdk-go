@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	"github.com/imroc/req"
-	"ptitluca.com/aleph-sdk-go/accounts"
-	"ptitluca.com/aleph-sdk-go/messages"
+	"aleph.im/aleph-sdk-go/accounts"
+	"aleph.im/aleph-sdk-go/messages"
 )
 
 type SignConfiguration struct {

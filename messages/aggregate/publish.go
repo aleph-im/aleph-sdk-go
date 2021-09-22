@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"ptitluca.com/aleph-sdk-go/accounts"
-	"ptitluca.com/aleph-sdk-go/messages"
-	"ptitluca.com/aleph-sdk-go/messages/create"
+	"aleph.im/aleph-sdk-go/accounts"
+	"aleph.im/aleph-sdk-go/messages"
+	"aleph.im/aleph-sdk-go/messages/create"
 )
 
 type AggregateContent struct {
