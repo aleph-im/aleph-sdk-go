@@ -11,6 +11,9 @@ type StoreGetConfiguration struct {
 	APIServer string
 }
 
+// Get is used to retrieve a store message - i.e. a file - on the Aleph network.
+//
+// It uses the file's hash generated at publish time to retrieve it.
 func Get(sgc StoreGetConfiguration) ([]byte, error) {
 	requester := req.New()
 

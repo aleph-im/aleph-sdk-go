@@ -9,15 +9,25 @@ import (
 	"ptitluca.com/aleph-sdk-go/messages/create"
 )
 
+// PostPublishConfiguration is used while publishing post messages.
+//
+// APIServer	- The API Server endpoint used to handle the request.
+// Account		- The account used to sign the message before broadcasting it.
+// StorageEngine	- The storage engine - IPFS or Aleph - used to store the content.
+// Channel		- The targeted channel to store the content.
+// InlineRequest	- Will the content be inlined ?
+// Content		- The content stored.
+// PostType			- The post type attached to the content (used as a key).
+// Ref			- The reference used if amending a message.
 type PostPublishConfiguration struct {
 	APIServer       string
-	Ref             string
+	Account         accounts.Account
+	StorageEngine   messages.StorageEngine
 	Channel         string
 	InlineRequested bool
-	StorageEngine   messages.StorageEngine
-	Account         accounts.Account
-	PostType        string
 	Content         interface{}
+	PostType        string
+	Ref             string
 }
 
 type ReferencedPostContent struct {
@@ -32,6 +42,8 @@ type PostContent struct {
 	Type    string      `json:"type"`
 }
 
+// Publish uses the post type - i.e. the key - and value provided in the configuration to publish an post message on the
+// Aleph network.
 func Publish(configuration PostPublishConfiguration) error {
 	timestamp := time.Now().Unix()
 	content := PostContent{

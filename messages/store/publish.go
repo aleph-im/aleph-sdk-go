@@ -11,11 +11,11 @@ import (
 )
 
 type StorePublishConfiguration struct {
-	Channel       string
-	Account       accounts.Account
-	File          io.Reader
-	StorageEngine messages.StorageEngine
 	APIServer     string
+	Account       accounts.Account
+	StorageEngine messages.StorageEngine
+	Channel       string
+	File          io.Reader
 }
 
 type StoreContent struct {
