@@ -3,10 +3,10 @@ package create
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/aleph-im/aleph-sdk-go/accounts"
+	"github.com/aleph-im/aleph-sdk-go/messages"
 
 	"github.com/imroc/req"
-	"aleph.im/aleph-sdk-go/accounts"
-	"aleph.im/aleph-sdk-go/messages"
 )
 
 type SignConfiguration struct {

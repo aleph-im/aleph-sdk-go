@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"github.com/aleph-im/aleph-sdk-go/messages"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -13,7 +14,6 @@ import (
 	"strings"
 
 	"github.com/imroc/req"
-	"aleph.im/aleph-sdk-go/messages"
 )
 
 type PushResponse struct {
