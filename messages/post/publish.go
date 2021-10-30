@@ -2,11 +2,10 @@ package posts
 
 import (
 	"fmt"
+	"github.com/aleph-im/aleph-sdk-go/accounts"
+	"github.com/aleph-im/aleph-sdk-go/messages"
+	"github.com/aleph-im/aleph-sdk-go/messages/create"
 	"time"
-
-	"aleph.im/aleph-sdk-go/accounts"
-	"aleph.im/aleph-sdk-go/messages"
-	"aleph.im/aleph-sdk-go/messages/create"
 )
 
 // PostPublishConfiguration is used while publishing post messages.

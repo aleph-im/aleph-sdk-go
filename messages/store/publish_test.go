@@ -1,9 +1,9 @@
 package store
 
 import (
+	"github.com/aleph-im/aleph-sdk-go/accounts/ethereum"
+	"github.com/aleph-im/aleph-sdk-go/messages"
 	"os"
-	"aleph.im/aleph-sdk-go/accounts/ethereum"
-	"aleph.im/aleph-sdk-go/messages"
 	"testing"
 )
 

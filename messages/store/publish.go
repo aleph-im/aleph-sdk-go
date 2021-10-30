@@ -2,12 +2,11 @@ package store
 
 import (
 	"fmt"
+	"github.com/aleph-im/aleph-sdk-go/accounts"
+	"github.com/aleph-im/aleph-sdk-go/messages"
+	"github.com/aleph-im/aleph-sdk-go/messages/create"
 	"io"
 	"time"
-
-	"aleph.im/aleph-sdk-go/accounts"
-	"aleph.im/aleph-sdk-go/messages"
-	"aleph.im/aleph-sdk-go/messages/create"
 )
 
 type StorePublishConfiguration struct {

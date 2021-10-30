@@ -1,6 +1,6 @@
 package accounts
 
-import "aleph.im/aleph-sdk-go/messages"
+import "github.com/aleph-im/aleph-sdk-go/messages"
 
 // The Account interface is implemented by ETHAccount.
 // In the future, it will be implemented by every account supported by Aleph.

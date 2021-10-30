@@ -2,8 +2,8 @@ package aggregate
 
 import (
 	"encoding/json"
-	"aleph.im/aleph-sdk-go/accounts/ethereum"
-	"aleph.im/aleph-sdk-go/messages"
+	"github.com/aleph-im/aleph-sdk-go/accounts/ethereum"
+	"github.com/aleph-im/aleph-sdk-go/messages"
 	"testing"
 )
 

@@ -3,9 +3,9 @@ package ethereum
 import (
 	"encoding/hex"
 	"fmt"
+	"github.com/aleph-im/aleph-sdk-go/messages"
 
 	hdwallet "github.com/miguelmota/go-ethereum-hdwallet"
-	"aleph.im/aleph-sdk-go/messages"
 )
 
 const DefaultDerivationPath = "m/44'/60'/0'/0/0"

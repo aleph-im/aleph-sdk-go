@@ -2,9 +2,9 @@ package posts
 
 import (
 	"encoding/json"
+	"github.com/aleph-im/aleph-sdk-go/accounts/ethereum"
+	"github.com/aleph-im/aleph-sdk-go/messages"
 	"github.com/google/uuid"
-	"aleph.im/aleph-sdk-go/accounts/ethereum"
-	"aleph.im/aleph-sdk-go/messages"
 	"testing"
 )
 
@@ -99,7 +99,7 @@ func TestAmendPostMessage(t *testing.T) {
 			Account:         account,
 			PostType:        "amend",
 			Content:         newContent,
-			Ref: response.Posts[0].ItemHash,
+			Ref:             response.Posts[0].ItemHash,
 		})
 		if err != nil {
 			t.Errorf("Failed to publish post message: %v", err)
