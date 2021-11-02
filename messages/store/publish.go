@@ -27,7 +27,7 @@ type StoreContent struct {
 	Ref         string  `json:"ref,omitempty"`
 }
 
-func Publish(configuration StorePublishConfiguration) (string, error) {
+func Publish(configuration StorePublishConfiguration) (string, *messages.BaseMessage, error) {
 	hash, err := create.PushFileToStorageEngine(create.FilePushConfiguration{
 		APIServer:     configuration.APIServer,
 		StorageEngine: configuration.StorageEngine,
@@ -35,7 +35,7 @@ func Publish(configuration StorePublishConfiguration) (string, error) {
 		Value:         configuration.File,
 	})
 	if err != nil {
-		return "", fmt.Errorf("failed to push file into specified storage engine: %v", err)
+		return "", nil, fmt.Errorf("failed to push file into specified storage engine: %v", err)
 	}
 
 	timestamp := time.Now().Unix()
@@ -66,7 +66,7 @@ func Publish(configuration StorePublishConfiguration) (string, error) {
 		APIServer:       configuration.APIServer,
 	})
 	if err != nil {
-		return "", fmt.Errorf("failed to put content into specified storage engine: %v", err)
+		return "", nil, fmt.Errorf("failed to put content into specified storage engine: %v", err)
 	}
 
 	err = create.SignAndBroadcast(create.SignConfiguration{
@@ -75,7 +75,7 @@ func Publish(configuration StorePublishConfiguration) (string, error) {
 		APIServer: configuration.APIServer,
 	})
 	if err != nil {
-		return "", fmt.Errorf("failed to sign and broadcast store message: %v", err)
+		return "", nil, fmt.Errorf("failed to sign and broadcast store message: %v", err)
 	}
-	return hash, err
+	return hash, &message, err
 }

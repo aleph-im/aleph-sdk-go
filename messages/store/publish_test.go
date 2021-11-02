@@ -17,7 +17,7 @@ func TestPublish(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to open file, reason: %v", err)
 	}
-	hash, err := Publish(StorePublishConfiguration{
+	hash, _, err := Publish(StorePublishConfiguration{
 		Channel:       "TEST",
 		Account:       account,
 		File:          file,
