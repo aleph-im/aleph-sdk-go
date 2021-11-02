@@ -30,7 +30,7 @@ func TestAggregateSubmit(t *testing.T) {
 		InlineRequested: true,
 		StorageEngine:   messages.SE_STORAGE,
 	}
-	err = Publish(asc)
+	_, err = Publish(asc)
 	if err != nil {
 		t.Errorf("Failed to submit aggregate message: %v", err)
 	}
