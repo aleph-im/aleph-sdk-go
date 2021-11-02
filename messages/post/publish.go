@@ -9,24 +9,15 @@ import (
 )
 
 // PostPublishConfiguration is used while publishing post messages.
-//
-// APIServer	- The API Server endpoint used to handle the request.
-// Account		- The account used to sign the message before broadcasting it.
-// StorageEngine	- The storage engine - IPFS or Aleph - used to store the content.
-// Channel		- The targeted channel to store the content.
-// InlineRequest	- Will the content be inlined ?
-// Content		- The content stored.
-// PostType			- The post type attached to the content (used as a key).
-// Ref			- The reference used if amending a message.
 type PostPublishConfiguration struct {
-	APIServer       string
-	Account         accounts.Account
-	StorageEngine   messages.StorageEngine
-	Channel         string
-	InlineRequested bool
-	Content         interface{}
-	PostType        string
-	Ref             string
+	APIServer       string                 // The API Server endpoint used to handle the request.
+	Account         accounts.Account       // The account used to sign the message before broadcasting it.
+	StorageEngine   messages.StorageEngine // The storage engine - IPFS or Aleph - used to store the content.
+	Channel         string                 // The targeted channel to store the content.
+	InlineRequested bool                   // Will the content be inlined ?
+	Content         interface{}            // The content stored.
+	PostType        string                 // The post type attached to the content (used as a key).
+	Ref             string                 // The reference used if amending a message.
 }
 
 type ReferencedPostContent struct {
@@ -41,9 +32,9 @@ type PostContent struct {
 	Type    string      `json:"type"`
 }
 
-// Publish uses the post type - i.e. the key - and value provided in the configuration to publish an post message on the
+// Publish uses the post type - i.e. the key - and value provided in the configuration to publish a post message on the
 // Aleph network.
-func Publish(configuration PostPublishConfiguration) error {
+func Publish(configuration PostPublishConfiguration) (*messages.BaseMessage, error) {
 	timestamp := time.Now().Unix()
 	content := PostContent{
 		Address: configuration.Account.GetAddress(),
@@ -79,7 +70,7 @@ func Publish(configuration PostPublishConfiguration) error {
 
 	err := create.PutContentToStorageEngine(pcc)
 	if err != nil {
-		return fmt.Errorf("failed to put content into storage engine: %v", err)
+		return nil, fmt.Errorf("failed to put content into storage engine: %v", err)
 	}
 
 	sc := create.SignConfiguration{
@@ -89,7 +80,7 @@ func Publish(configuration PostPublishConfiguration) error {
 	}
 	err = create.SignAndBroadcast(sc)
 	if err != nil {
-		return fmt.Errorf("failed to sign and broadcast post message: %v", err)
+		return nil, fmt.Errorf("failed to sign and broadcast post message: %v", err)
 	}
-	return nil
+	return &message, nil
 }

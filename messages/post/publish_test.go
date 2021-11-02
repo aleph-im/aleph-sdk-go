@@ -27,7 +27,7 @@ func TestPublishPostMessage(t *testing.T) {
 		PostType:        pType,
 		Content:         content,
 	}
-	err = Publish(configuration)
+	_, err = Publish(configuration)
 	if err != nil {
 		t.Errorf("Failed to publish post message: %v", err)
 	}
@@ -72,7 +72,7 @@ func TestAmendPostMessage(t *testing.T) {
 		PostType:        pType,
 		Content:         content,
 	}
-	err = Publish(configuration)
+	_, err = Publish(configuration)
 	if err != nil {
 		t.Errorf("Failed to publish post message: %v", err)
 	}
@@ -91,7 +91,7 @@ func TestAmendPostMessage(t *testing.T) {
 		t.Fatalf("Post message should not be nil")
 	} else {
 		newContent := T{Body: "Hello World V2"}
-		err = Publish(PostPublishConfiguration{
+		_, err = Publish(PostPublishConfiguration{
 			APIServer:       APIServer,
 			Channel:         "TEST",
 			InlineRequested: true,
